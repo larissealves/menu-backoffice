@@ -6,6 +6,8 @@ import { RedisStore } from 'connect-redis';
 
 import cors from 'cors';
 
+import {requireAuth} from './auth.js';
+
 import dishRoutes from "./routes/dish.js";
 import tagRoutes from "./routes/tag.js";
 import ingredientsRoutes from "./routes/ingredients.js";
@@ -41,12 +43,8 @@ app.use(session({
         priority: 'medium',
         maxAge: 1000 * 60 * 60 * 24 * 30
     }
-})); 
+}));
 
-app.use('/api', dishRoutes);
-app.use('/api', tagRoutes);
-app.use('/api', ingredientsRoutes);
-app.use('/api', categoriesRoutes);
 
 app.use('/api', loginRoutes);
 
@@ -54,16 +52,25 @@ app.get('/api/me', (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({
             user: '',
+            loggedIn: false,
             message: 'Não autenticado'
         });
     }
 
     res.json({
         user: req.session.user,
+        loggedIn: true,
         message: '',
     });
 });
 
+
+app.use('/api', requireAuth);
+
+app.use('/api', dishRoutes);
+app.use('/api', tagRoutes);
+app.use('/api', ingredientsRoutes);
+app.use('/api', categoriesRoutes);
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port http://${hostname}:${port}/`);

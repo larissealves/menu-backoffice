@@ -53,9 +53,9 @@ export default function ListDish() {
     const fetchDropdowns = async () => {
         try {
             const [tags, ingredients, categories] = await Promise.all([
-                fetch(`${ENDPOINT}tags`),
-                fetch(`${ENDPOINT}ingredients`),
-                fetch(`${ENDPOINT}categories`),
+                fetch(`${ENDPOINT}tags`, {credentials: 'include'}),
+                fetch(`${ENDPOINT}ingredients`, {credentials: 'include'}),
+                fetch(`${ENDPOINT}categories`, {credentials: 'include'}),
             ]);
 
             const dataTags = await tags.json();
@@ -78,9 +78,12 @@ export default function ListDish() {
             const filterByingredients = filters.ingredients?.length && filters.ingredients[0] > 0 ? filters.ingredients.join(",") : '';
 
             const [dataListDish] = await Promise.all([
-                fetch(`${ENDPOINT}dishes?tags=${filterByTags}&ingredients=${filterByingredients}&category=${filters.category}&name=${filterByName}&currentPage=${currentPage}&limit=${PAGINATION_LIMIT}`),
+                fetch(`${ENDPOINT}dishes?tags=${filterByTags}&ingredients=${filterByingredients}&category=${filters.category}&name=${filterByName}&currentPage=${currentPage}&limit=${PAGINATION_LIMIT}`, 
+                    {credentials: 'include'}),
             ]);
+
             const data = await dataListDish.json();
+
             setListDish(data.data);
             setCurrentPage(data.pagination.currentPage);
             setPaginationTotalPages(data.pagination.totalPages);
