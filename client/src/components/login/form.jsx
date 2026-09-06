@@ -76,16 +76,15 @@ export default function Login({ setLoading, loading, onSave }) {
 
     return (
         <Popup>
+            <div className="flex h-auto items-center justify-center bg-[#FFFDF5]">
+                <div className="w-full max-w-md bg-white p-8">
 
-            <div className="flex  h-auto items-center justify-center bg-gray-100">
-                <div className="w-full max-w-md bg-white p-8  ">
-
-                    <h1 className="mb-6 text-2xl font-bold text-gray-800">
+                    <h1 className="mb-6 text-2xl font-bold text-[#3F5145]">
                         Login
                     </h1>
 
                     <div className="mb-4">
-                        <label className="mb-2 block text-sm font-medium text-gray-700">
+                        <label className="mb-2 block text-sm font-medium text-[#3F5145]">
                             NAME:
                         </label>
 
@@ -99,14 +98,14 @@ export default function Login({ setLoading, loading, onSave }) {
                                 }); setAlertMessage('')
                             })
                             }
-                            className="w-full rounded-lg border border-gray-300 px-4 py-2.5
-                           outline-none transition
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                            className="w-full rounded-lg border border-[#E8E1C8] px-4 py-2.5
+               bg-[#FFFDF5] outline-none transition
+               focus:border-[#D9B64C] focus:ring-2 focus:ring-[#F6D77A]/40"
                         />
                     </div>
 
                     <div className="mb-6">
-                        <label className="mb-2 block text-sm font-medium text-gray-700">
+                        <label className="mb-2 block text-sm font-medium text-[#3F5145]">
                             PASSWORD:
                         </label>
 
@@ -120,9 +119,9 @@ export default function Login({ setLoading, loading, onSave }) {
                                 }); setAlertMessage('')
                             })
                             }
-                            className="w-full rounded-lg border border-gray-300 px-4 py-2.5
-                           outline-none transition
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                            className="w-full rounded-lg border border-[#E8E1C8] px-4 py-2.5
+               bg-[#FFFDF5] outline-none transition
+               focus:border-[#D9B64C] focus:ring-2 focus:ring-[#F6D77A]/40"
                         />
                     </div>
 
@@ -130,20 +129,19 @@ export default function Login({ setLoading, loading, onSave }) {
                         onClick={handle}
                         disabled={loading || !form.name || !form.password}
                         className=
-                        {`w-full rounded-lg  px-4 py-2.5 mb-4 
-                            font-semibold text-white transition
-                            active:scale-[0.98]
-                            ${!loading && form.name && form.password ?
-                                "bg-blue-600 hover:bg-blue-700 cursor-pointer" : " bg-gray-400 cursor-not-allowed"
+                        {`w-full rounded-lg px-4 py-2.5 mb-4 
+                font-semibold text-white transition
+                active:scale-[0.98]
+                ${!loading && form.name && form.password ?
+                                "bg-[#3F5145] hover:bg-[#34443A] cursor-pointer" : "bg-[#C8C8BE] cursor-not-allowed"
                             }`
                         }
                     >
-                         {loading ? "Loading..." : "Login"}
+                        {loading ? "Loading..." : "Login"}
                     </button>
 
-
                     {alertMessage && (
-                        <p className="mb-4 rounded-lg bg-red-100 p-3 text-sm text-red-700 ">
+                        <p className="mb-4 rounded-lg bg-[#F9E4A8] p-3 text-sm text-[#6B5418]">
                             {alertMessage}
                         </p>
                     )}
