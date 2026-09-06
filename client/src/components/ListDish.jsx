@@ -136,8 +136,7 @@ export default function ListDish() {
         }
 
         try {
-            const res = await fetch(`
-                http://localhost:3000/api/dishes`,
+            const res = await fetch(`${ENDPOINT}dishes`,
                 {
                     method: "POST",
                     body: form,
@@ -174,10 +173,6 @@ export default function ListDish() {
         setFilters({ ...filters, name: filterName });
         setCurrentPage(1);
     }
-
-    const testeLogin = async () => {
-        const api = await fetch(`http://localhost:3000/api/login?userName=${'larisse'}&userPassword=${'larisse'}`)
-    };
 
     useEffect(() => {
         fetchDropdowns();
