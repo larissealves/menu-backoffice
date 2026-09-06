@@ -176,7 +176,6 @@ export default function ListDish() {
 
     useEffect(() => {
         fetchDropdowns();
-        testeLogin();
     }, []);
 
     useEffect(() => {
