@@ -14,6 +14,7 @@ import ingredientsRoutes from "./routes/ingredients.js";
 import categoriesRoutes from './routes/categories.js'
 
 import loginRoutes from './routes/login/login.js'
+import logoutRoute from './routes/login/logout.js'
 
 const port = 3000;
 const hostname = "localhost";
@@ -47,6 +48,7 @@ app.use(session({
 
 
 app.use('/api', loginRoutes);
+app.use('/api', logoutRoute);
 
 app.get('/api/me', (req, res) => {
     if (!req.session.user) {
