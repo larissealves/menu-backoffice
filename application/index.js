@@ -45,7 +45,6 @@ app.use(session({
         sameSite: envConf.sameSite,
         priority: 'medium',
         maxAge: 1000 * 60 * 60 * 24 * 30,
-        path: '/'
     }
 }));
 
