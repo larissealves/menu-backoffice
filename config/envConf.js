@@ -10,6 +10,7 @@ function envConf() {
             sessionSecret: process.env.SESSION_SECRET,
             redisURL: process.env.REDIS_URL,
             allowedOrigins: process.env.ALLOWED_ORIGINS,
+            hostname: 'localhost'
         };
     }
 
@@ -20,6 +21,7 @@ function envConf() {
             sessionSecret: process.env.SESSION_SECRET_PROD,
             redisURL: process.env.REDIS_URL_PROD,
             allowedOrigins: process.env.ALLOWED_ORIGINS_PROD,
+            hostname: '0.0.0.0'
         };
     }
 
