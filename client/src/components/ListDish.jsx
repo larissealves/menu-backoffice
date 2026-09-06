@@ -4,8 +4,10 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import ListDishPDF from './ListDishPDF.jsx';
 
+import envConfig from "../../config/envConfig.js";
+const ENDPOINT = `${envConfig.vitApiUrl}/api/`;
+
 export default function ListDish() {
-    const ENDPOINT = 'http://localhost:3000/api/';
 
     const [listDish, setListDish] = useState([]);
     const [listTags, setListTags] = useState([]);

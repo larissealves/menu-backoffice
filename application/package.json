@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=../.env.development index.js",
     "docker": "node index.js",
-    "start": "node --env-file=../.env.production index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "connect-redis": "^10.0.0",

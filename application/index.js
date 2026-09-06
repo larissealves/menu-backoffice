@@ -1,6 +1,8 @@
 import express from 'express';
 import session from 'express-session';
 
+import envConf from '../config/envConf.js';
+
 import client from './redis.js';
 import { RedisStore } from 'connect-redis';
 
@@ -17,13 +19,13 @@ import loginRoutes from './routes/login/login.js'
 import logoutRoute from './routes/login/logout.js'
 
 const port = 3000;
-const hostname = "localhost";
+const hostname = envConf.hostname;
 
 const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = 'http://localhost:5173';
+const allowedOrigins = envConf.allowedOrigins;
 
 app.use(cors({
     origin: allowedOrigins,
@@ -34,7 +36,7 @@ app.use(session({
     store: new RedisStore({
         client: client
     }),
-    secret: process.env.SESSION_SECRET,
+    secret: envConf.sessionSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {

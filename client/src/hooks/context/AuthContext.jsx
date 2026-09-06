@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const ENDPOINT = 'http://localhost:3000/api/';
+import envConfig from "../../../config/envConfig.js";
+const ENDPOINT = `${envConfig.vitApiUrl}/api/`;
+
 const Auth = createContext();
 
 export function AuthProvider({ children }) {

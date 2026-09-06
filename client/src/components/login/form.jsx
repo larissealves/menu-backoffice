@@ -4,11 +4,10 @@ import Popup from "../baseComponents/Popup";
 import { useAuth } from "../../hooks/context/AuthContext";
 import Loading from "../baseComponents/Loading";
 
+import envConfig from "../../../config/envConfig.js";
+const ENDPOINT = `${envConfig.vitApiUrl}/api/`;
 
 export default function Login({ setLoading, loading, onSave }) {
-
-    const ENDPOINT = 'http://localhost:3000/api/';
-
     const [form, setForm] = useState({
         name: '',
         password: '',

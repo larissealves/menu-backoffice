@@ -1,7 +1,9 @@
 import pg from 'pg'
+import envConf from '../../config/envConf.js';
+
 const { Pool, Client } = pg
-const connectionString = process.env.DATABASE_URL;
- 
+const connectionString =  envConf.dataBaseUrl;
+
 const pool = new Pool({
   connectionString,
   ssl: { rejectUnauthorized: false },
