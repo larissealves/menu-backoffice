@@ -38,7 +38,7 @@ app.use(session({
     }),
     secret: envConf.sessionSecret,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         secure: envConf.secure,

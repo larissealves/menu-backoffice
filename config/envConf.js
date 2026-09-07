@@ -16,7 +16,7 @@ function envConf() {
         };
     }
 
-    if (getEnv === 'prod') {
+    if (getEnv === 'production') {
         return {
             dataBaseUrl: process.env.DATABASE_URL_PROD,
             dataBaseUrlLogin: process.env.DATABASE_URL_LOGIN,

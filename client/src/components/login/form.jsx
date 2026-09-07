@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/context/AuthContext";
 import Loading from "../baseComponents/Loading";
 
 import envConfig from "../../../config/envConfig.js";
-const ENDPOINT = `${envConfig.vitApiUrl}/api/`;
+const ENDPOINT = `/api/`;
 
 export default function Login({ setLoading, loading, onSave }) {
     const [form, setForm] = useState({

@@ -9,7 +9,7 @@ function envConf() {
         };
     }
 
-    if (getEnv === 'prod') {
+    if (getEnv === 'production') {
         return {
             vitApiUrl: import.meta.env.VITE_API_URL_PROD,
         };

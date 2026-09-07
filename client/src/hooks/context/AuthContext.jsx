@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import envConfig from "../../../config/envConfig.js";
-const ENDPOINT = `${envConfig.vitApiUrl}/api/`;
+const ENDPOINT = `/api/`;
 
 const Auth = createContext();
 
