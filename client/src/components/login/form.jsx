@@ -55,9 +55,11 @@ export default function Login({ setLoading, loading, onSave }) {
                 });
 
             const result = await sendRequest.json();
+            console.log(sendRequest);
 
             if (!sendRequest.ok || !result.loginIsValid) {
                 setAlertMessage('Usuário não pode loggar. Verifique o cadastro.');
+                console.log('Error: status ', sendRequest.status + ' => ' + result.message );
                 return;
             }
             setUser(result.user);

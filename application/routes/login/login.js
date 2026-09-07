@@ -7,6 +7,17 @@ router.post('/login', async (req, res) => {
     const userName = req.body.name;
     const userPassword = req.body.password;
 
+    if (!userName || !userPassword) {
+        return res.status(400).json({
+            user: '',
+            loginIsValid: false,
+            message: `Campo obrigatório não preenchido., 
+                   name: ${!userName ? userName : null} - 
+                   senha: ${!userPassword ? '****' : null}
+                `
+        });
+    }
+
     try {
         const login = await checklogin(userName, userPassword);
 
@@ -41,7 +52,7 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.log('Error ao checar login: ', error.message);
         res.status(500).json({
-            message: "Error ao checar login."
+            message: "Error ao checar login no DB."
         })
     }
 });
