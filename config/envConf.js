@@ -19,7 +19,7 @@ function envConf() {
     if (getEnv === 'production') {
         return {
             dataBaseUrl: process.env.DATABASE_URL_PROD,
-            dataBaseUrlLogin: process.env.DATABASE_URL_LOGIN,
+            dataBaseUrlLogin: process.env.DATABASE_URL_LOGIN_PROD,
             sessionSecret: process.env.SESSION_SECRET_PROD,
             redisURL: process.env.REDIS_URL_PROD,
             allowedOrigins: process.env.ALLOWED_ORIGINS_PROD,
