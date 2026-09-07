@@ -12,8 +12,9 @@ router.get("/categories", async (req, res) =>{
         })
 
     } catch(error) {
+        console.log("DB - Erro ao listar categories: ", error);
         res.status(500).json({
-            error: error,
+            message: "DB - Erro ao listar categories",
         });
     }
 });

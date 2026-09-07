@@ -45,7 +45,7 @@ router.get(`/dishes`,
         console.log('Endpoint GET /dishes:', error);
         res.status(500).json({
             error: "Internal server error",
-            message: "Erro ao carregar a lista de pratos."
+            message: "DB - Erro ao buscar lista de pratos no banco de dados."
         });
     }
 

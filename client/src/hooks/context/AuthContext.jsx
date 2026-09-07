@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
                 setUser(null);
             }
         } catch (error) {
-            console.error('Erro ao fazer logout:', error);
+            console.error('Erro ao fazer logout:', error.message);
         }finally{
             setLoginChecked(true);
             setLoading(false);

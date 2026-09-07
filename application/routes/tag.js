@@ -11,8 +11,9 @@ router.get('/tags', async (req, res) => {
         });
     } 
     catch (error) {
+        console.log("DB - Erro ao listar tags: ", error);
         res.status(500).json({
-            error: "Erro ao listar as tags",
+            message: "DB - Erro ao listar as tags",
         })
     }
 }); 

@@ -55,7 +55,6 @@ export default function Login({ setLoading, loading, onSave }) {
                 });
 
             const result = await sendRequest.json();
-            console.log(sendRequest);
 
             if (!sendRequest.ok || !result.loginIsValid) {
                 setAlertMessage('Usuário não pode loggar. Verifique o cadastro.');
@@ -68,7 +67,7 @@ export default function Login({ setLoading, loading, onSave }) {
             //onSave();
 
         } catch (error) {
-            console.log('Erro ao checar login do usuário.');
+            console.log('Erro ao checar login do usuário.', error.message);
         } finally {
             activeLoading();
         }

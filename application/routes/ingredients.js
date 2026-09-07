@@ -13,8 +13,9 @@ router.get('/ingredients', async (req, res) => {
         })
 
     } catch(error) {
+        console.log("DB - Erro ao listar ingredients: ", error);
         res.status(500).json({
-            error: "Erro ao busca lista de ingredientes",
+            message: "DB - Erro ao busca lista de ingredientes",
         });
     }
 });
