@@ -30,14 +30,6 @@ router.post('/login', async (req, res) => {
             }
         });
 
-
-        return res.status(200).json({
-            user: login.name,
-            loginIsValid: true,
-            message: 'Login realizado com sucesso.'
-        });
-
-
         const data = res.status(200).json({
             user: login.name,
             loginIsValid: login.logginValid,
