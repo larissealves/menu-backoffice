@@ -21,7 +21,7 @@ export default function BaseLayout() {
                     <div className="flex shrink-0 items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-[#F6D77A]">
                             <img
-                                src="../../../public/favicon.png"
+                                src="/favicon.png"
                                 alt=""
                                 className="h-7 w-7 object-contain"
                             />
