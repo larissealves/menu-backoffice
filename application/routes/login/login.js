@@ -39,15 +39,16 @@ router.post('/login', async (req, res) => {
                     message: 'Erro ao salvar sessão.'
                 });
             }
-        });
 
-        const data = res.status(200).json({
-            user: login.name,
-            loginIsValid: login.logginValid,
-            message: 'Login realizado'
-        });
+            const data = res.status(200).json({
+                user: login.name,
+                loginIsValid: login.logginValid,
+                message: 'Login realizado'
+            });
 
-        return data;
+            return data;
+
+        });
 
     } catch (error) {
         console.log('Error ao checar login: ', error.message);
