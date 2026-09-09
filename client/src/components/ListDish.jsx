@@ -765,14 +765,14 @@ export default function ListDish() {
                                     Imagens
                                 </p>
 
-                                <div className="flex h-28 w-30 items-center justify-center overflow-hidden rounded-md bg-[#F5F1DF] object-cover">
+                                <div className="flex flex-wrap w-full items-center justify-center overflow-hidden rounded-md bg-[#F5F1DF] object-cover">
                                     {item.listImages?.length > 0 ? (
                                         item.listImages.map((img, index) => (
                                             <img
                                                 key={index}
                                                 src={img}
                                                 alt={`${item.dishName} - imagem ${index + 1}`}
-                                                className="h-full w-full object-cover"
+                                                className="h-15 w-15 object-cover rounded-md m-2 transition duration-300 hover:scale-180"
                                             />
                                         ))
                                     ) : (

@@ -69,7 +69,7 @@ export async function getDish(currentPage = 1, limit = 3, filters = {}) {
 
             FROM "Dish" 
 
-            LEFT JOIN "Category" 
+            INNER JOIN "Category" 
                 ON "Dish"."categoryId" = "Category".id 
             
             LEFT JOIN "DishTag" 
@@ -88,7 +88,7 @@ export async function getDish(currentPage = 1, limit = 3, filters = {}) {
                 ON "Dish"."id" =  "DishImage"."dishId"
             
             LEFT JOIN "DishImageBinary"
-                ON "DishImage"."dishId" = "DishImageBinary"."dishImageId"
+                ON "DishImage"."id" = "DishImageBinary"."dishImageId"
 
             WHERE             
             ( $1::integer[] IS NULL
