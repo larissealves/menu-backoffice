@@ -24,7 +24,7 @@ function envConf() {
             redisURL: process.env.REDIS_URL_PROD,
             allowedOrigins: process.env.ALLOWED_ORIGINS_PROD,
             hostname: '0.0.0.0',
-            sameSite: 'none',
+            sameSite: 'lax',
             secure: true,
         };
     }
