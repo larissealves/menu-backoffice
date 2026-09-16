@@ -1,4 +1,6 @@
 ## 📌 Documentation
+This project also serves as a scalability and performance laboratory.
+
 
 ### Database Schema
 
@@ -31,6 +33,22 @@
 ---
 
 ## 📋 Roadmap
+
+### Scalability & Performance
+
+* [ ] Establish performance baseline
+  * [ ] Learn and use **k6** for load testing
+  * [ ] Measure response time, RPS and error rate
+* [ ] Simulate high traffic
+* [ ] Test with large amounts of data
+* [ ] Analyze and optimize database queries
+* [ ] Review and improve database indexes
+* [ ] Implement pagination
+* [ ] Test Redis caching
+* [ ] Implement load testing scenarios
+* [ ] Test horizontal scaling
+* [ ] Simulate system failures
+* [ ] Document performance results and bottlenecks
 
 ### Authentication & Security
 
