@@ -1,5 +1,5 @@
-import { DataBaseError } from '../../application/erros/DataBaseError.js';
-import { databaseErrorMapper } from '../../application/erros/databaseErrorMapper.js';
+import { DataBaseError } from '../../application/responses/erros/DataBaseError.js';
+import { databaseErrorMapper } from '../../application/responses/erros/databaseErrorMapper.js';
 import pool from '../config/pgConnection.js';
 
 export async function getDish(currentPage = 1, limit = 3, filters = {}) {

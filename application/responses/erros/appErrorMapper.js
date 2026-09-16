@@ -3,38 +3,39 @@
 import { AppError } from "./AppError.js";
 
 function appErrorMapper(error, addInformation) {
-    console.log("REMOVER ERROR => ", error)
     switch (error) {
         case 401:
             return new AppError(
                 'Usuário não autenticado',
                 401,
+                'UNAUTHORIZED',
                 addInformation,
-                'UNAUTHORIZED'
             );
 
         case 403:
             return new AppError(
                 'Usuário sem permissão para executar esta ação',
                 403,
+                'FORBIDDEN',
                 addInformation,
-                'FORBIDDEN'
             );
 
         case 400:
             return new AppError(
                 'URL inválida. Verifique os parâmetros informados',
                 400,
+                'BAD_REQUEST',
                 addInformation,
-                'BAD_REQUEST'
+
             );
 
         case 404:
             return new AppError(
                 'Recurso não encontrado. Verifique os parâmetros informados',
                 400,
+                'INVALID_FILTER_VALUE',
                 addInformation,
-                'INVALID_FILTER_VALUE'
+
             );
 
         default:

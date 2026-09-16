@@ -1,4 +1,4 @@
-import { databaseErrorMapper } from "../../application/erros/databaseErrorMapper.js";
+import { databaseErrorMapper } from "../../application/responses/erros/databaseErrorMapper.js";
 import pool from "../config/pgConnection.js"
 
 

@@ -36,7 +36,7 @@ function databaseErrorMapper(error) {
             return new DataBaseError(
                 'Erro ao acessar o banco de dados.',
                 500,
-                'DATABASE_ERROR'
+                'DATABASE_DEFAULT_ERROR'
             );
     }
 }

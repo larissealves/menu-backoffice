@@ -56,9 +56,9 @@ export default function Login({ setLoading, loading, onSave }) {
 
             const result = await sendRequest.json();
 
-            if (!sendRequest.ok || !result.loginIsValid) {
+            if (!sendRequest.ok || !result.loggedIn) {
                 setAlertMessage('Usuário não pode loggar. Verifique o cadastro.');
-                console.log('Error: status ', sendRequest.status + ' => ' + result.message );
+                console.log('Error: status ', sendRequest.status + ' => ' ,  result );
                 return;
             }
             setUser(result.user);
@@ -67,7 +67,7 @@ export default function Login({ setLoading, loading, onSave }) {
             //onSave();
 
         } catch (error) {
-            console.log('Erro ao checar login do usuário.', error.message);
+            console.log(error);
         } finally {
             activeLoading();
         }

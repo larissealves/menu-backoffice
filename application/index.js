@@ -1,7 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 
-import { errorHandler } from './erros/errorHandle.js';
+import { errorHandler } from './responses/erros/errorHandle.js';
 
 import envConf from '../config/envConf.js';
 
@@ -19,7 +19,7 @@ import categoriesRoutes from './routes/categories.js'
 
 import loginRoutes from './routes/login/login.js'
 import logoutRoute from './routes/login/logout.js'
-import { appErrorMapper } from './erros/appErrorMapper.js';
+import { appErrorMapper } from './responses/erros/appErrorMapper.js';
 
 const port = 3000;
 const hostname = envConf.hostname;

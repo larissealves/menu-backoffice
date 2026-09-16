@@ -46,6 +46,11 @@ export default function Home() {
             const dataIngredients = await ingredients.json();
             const dataCategories = await categories.json();
 
+            if (!tags.ok || !categories.ok || !ingredients.ok) {
+                console.log(`{${dataCategories}, \n, ${dataIngredients}, \n, ${dataTags}}`)
+                return;
+            }
+
             setListTags(dataTags.data);
             setListIngredients(dataIngredients.data);
             setListCategories(dataCategories.data);
@@ -54,7 +59,7 @@ export default function Home() {
             setListTags([]);
             setListIngredients([]);
             setListCategories([]);
-            console.log("Erro ao carregar os dados dos dropdowns!");
+            console.log("Erro ao carregar os dados dos dropdowns! \n", error);
         } finally {
             setLoading(false);
         }
@@ -95,7 +100,6 @@ export default function Home() {
     };
 
     const updateFilters = (value) => {
-        console.log("VALUE RECEBIDO =>  REMOVER => ", value)
         const newFilter = {
             ...filters,
             tags: value.tags,

@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { checklogin } from '../../../database/queries/login/login.js'
-import { appErrorMapper } from '../../erros/appErrorMapper.js';
+import { appErrorMapper } from '../../responses/erros/appErrorMapper.js';
+import { successResponse } from '../../responses/success/successResponse.js';
 
 const router = express.Router();
 
@@ -31,13 +32,11 @@ router.post('/login', async (req, res) => {
             throw appErrorMapper(500, 'COOKIE - Erro ao salvar sessão.');
         }
 
-        const data = res.status(200).json({
-            user: login.name,
-            loginIsValid: login.logginValid,
-            message: 'Login realizado'
-        });
-
-        return data;
+        return successResponse(res, {
+                user: login.name,
+                loggedIn: login.logginValid,
+            }, 201
+        )
 
     });
 });

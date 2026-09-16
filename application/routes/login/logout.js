@@ -1,5 +1,5 @@
 import express from 'express'
-import { appErrorMapper } from '../../erros/appErrorMapper.js';
+import { appErrorMapper } from '../../responses/erros/appErrorMapper.js';
 
 const router = express.Router();
 

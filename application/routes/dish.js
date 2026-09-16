@@ -3,6 +3,7 @@ import { asyncHandler } from "../middlewares/asyncHandler.js";
 
 import { getDish, createDish } from '../../database/queries/dishQueries.js'
 import multer from "multer";
+import { successResponse } from "../responses/success/successResponse.js";
 
 const upload = multer();
 const router = express.Router();
@@ -32,16 +33,18 @@ router.get(`/dishes`,
 
         const totalItems = listDishes.totalItems;
 
-        res.status(200).json({
-            data: formattedDishes,
-            pagination: {
-                totalPages: Number(Math.ceil(totalItems / limit)),
-                currentPage: Number(currentPage),
-                limit: Number(limit),
+        return successResponse(res,
+            {
+                data: formattedDishes,
+                pagination: {
+                    totalPages: Number(Math.ceil(totalItems / limit)),
+                    currentPage: Number(currentPage),
+                    limit: Number(limit),
+                }
             }
-        });
+        );
     }
-    ));
+));
 
 router.post(`/dishes`, upload.none(), async (req, res) => {
     const form = {
@@ -56,9 +59,9 @@ router.post(`/dishes`, upload.none(), async (req, res) => {
     }
     const sendForm = await createDish(form);
 
-    res.status(200).json({
-        data: sendForm,
-        message: "Prato adicionado com sucesso"
+    return successResponse(res, {
+            data: sendForm,
+            message: "Prato adicionado com sucesso"
     });
 });
 
