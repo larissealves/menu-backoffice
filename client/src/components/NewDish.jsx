@@ -107,8 +107,7 @@ export default function NewDish({showForm, loading, setLoading, listTags, listIn
     return (
 
         <div className="min-h-screen bg-[#FFFDF5] p-3 sm:p-4">
-            {showForm && (
-                <form
+            <form
                     onSubmit={handleSubmit}
                     className="mx-auto mb-5 max-w-4xl rounded-xl bg-white p-4 shadow-sm border border-[#EEE7D2]"
                 >
@@ -362,7 +361,6 @@ export default function NewDish({showForm, loading, setLoading, listTags, listIn
                         </button>
                     </div>
                 </form>
-            )}
         </div>
 
     );

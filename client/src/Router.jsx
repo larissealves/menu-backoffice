@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./hooks/context/AuthContext.jsx";
 
 import Home from "./components/home.jsx";
-import ListDishScreenFilters from './components/ListDishScreenFilters.jsx';
+import ListDishScreenFilters from "./components/z_remove/ListDishScreenFilters.jsx";
 import BaseLayout from "./components/baseComponents/BaseLayout.jsx";
 
 import Login from './components/login/form.jsx';

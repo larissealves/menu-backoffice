@@ -5,7 +5,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import ListDish from "./ListDish.jsx";
 import NewDish from "./NewDish.jsx";
 import FiltersDish from "./FiltersDish.jsx";
-import ListDishPDF from './ListDishPDF.jsx';
+import ListDishPDF from "./z_remove/ListDishPDF.jsx";
 
 import envConfig from "../../config/envConfig.js";
 const ENDPOINT = `/api/`;
@@ -106,9 +106,7 @@ export default function Home() {
         fetchDishes();
     }, [filters, currentPage]);
 
-
     return (
-
         <div className="min-h-screen bg-[#FFFDF5] p-3 sm:p-4">
 
             <div className="mx-auto mb-3 flex justify-end gap-4">
