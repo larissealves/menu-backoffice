@@ -1,6 +1,8 @@
 import express from 'express';
 import session from 'express-session';
 
+import { errorHandler } from './erros/errorHandle.js';
+
 import envConf from '../config/envConf.js';
 
 import client from './redis.js';
@@ -76,6 +78,8 @@ app.use('/api', dishRoutes);
 app.use('/api', tagRoutes);
 app.use('/api', ingredientsRoutes);
 app.use('/api', categoriesRoutes);
+
+app.use(errorHandler);
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port http://${hostname}:${port}/`);

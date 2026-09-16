@@ -1,3 +1,5 @@
+import { DataBaseError } from '../../application/erros/DataBaseError.js';
+import { databaseErrorMapper } from '../../application/erros/databaseErrorMapper.js';
 import pool from '../config/pgConnection.js';
 
 export async function getDish(currentPage = 1, limit = 3, filters = {}) {
@@ -128,7 +130,7 @@ export async function getDish(currentPage = 1, limit = 3, filters = {}) {
 
     } catch (error) {
         console.error('DB - getDish():', error);
-        throw error;
+        throw databaseErrorMapper(error);
     }
 }
 
@@ -223,7 +225,7 @@ export async function createDish(dishDetails = {}) {
 
         await client.query('ROLLBACK');
         console.error('DB - createDish():', error);
-        throw error;
+        throw databaseErrorMapper(error);
 
     } finally {
 

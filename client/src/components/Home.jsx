@@ -74,12 +74,21 @@ export default function Home() {
 
             const data = await dataListDish.json();
 
+            if (!dataListDish.ok) {
+                const error = new Error(data.error.message);
+                error.code = data.error.code;
+                throw error;
+            }
+
             setListDish(data.data);
             setCurrentPage(data.pagination.currentPage);
             setPaginationTotalPages(data.pagination.totalPages);
+
+
         } catch (error) {
             setListDish([]);
-            console.log("Erro ao carregar a lista de pratos!");
+            console.log("Erro ao carregar a lista de pratos! \n", error);
+
         } finally {
             setLoading(false);
         }
