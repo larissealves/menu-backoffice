@@ -1,6 +1,6 @@
-import React, { useState,  } from "react";
+import React, { useState, } from "react";
 
-export default function ListDish({dishes=[], loading, setCurrentPagePrev, setCurrentPageNext, currentPage, paginationTotalPages }) {
+export default function ListDish({ dishes = [], loading, setCurrentPagePrev, setCurrentPageNext, currentPage, paginationTotalPages }) {
     return (
 
         <div className="min-h-screen bg-[#FFFDF5] p-3 sm:p-4">
@@ -127,19 +127,19 @@ export default function ListDish({dishes=[], loading, setCurrentPagePrev, setCur
                         </article>
                     ))
                 ) : (
-                <>
-                    {!loading & (
-                    <div className="col-span-full rounded-xl border border-[#EEE7D2] bg-white px-4 py-10 text-center shadow-sm">
-                        <p className="text-base font-semibold text-[#3F5145]">
-                            Nenhum prato encontrado
-                        </p>
+                    <>
+                        {!loading && (
+                            <div className="col-span-full rounded-xl border border-[#EEE7D2] bg-white px-4 py-10 text-center shadow-sm">
+                                <p className="text-base font-semibold text-[#3F5145]">
+                                    Nenhum prato encontrado
+                                </p>
 
-                        <p className="mt-1 text-xs text-[#A5A89E]">
-                            Tente alterar os filtros da pesquisa.
-                        </p>
-                    </div>
-                    )}
-                </>
+                                <p className="mt-1 text-xs text-[#A5A89E]">
+                                    Tente alterar os filtros da pesquisa.
+                                </p>
+                            </div>
+                        )}
+                    </>
                 )}
             </section>
 
