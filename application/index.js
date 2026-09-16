@@ -10,7 +10,7 @@ import { RedisStore } from 'connect-redis';
 
 import cors from 'cors';
 
-import {requireAuth} from './auth.js';
+import {requireAuth} from './middlewares/auth.js'
 
 import dishRoutes from "./routes/dish.js";
 import tagRoutes from "./routes/tag.js";
@@ -19,6 +19,7 @@ import categoriesRoutes from './routes/categories.js'
 
 import loginRoutes from './routes/login/login.js'
 import logoutRoute from './routes/login/logout.js'
+import { appErrorMapper } from './erros/appErrorMapper.js';
 
 const port = 3000;
 const hostname = envConf.hostname;
@@ -57,11 +58,7 @@ app.use('/api', logoutRoute);
 
 app.get('/api/me', (req, res) => {
     if (!req.session.user) {
-        return res.status(401).json({
-            user: '',
-            loggedIn: false,
-            message: 'Não autenticado'
-        });
+       throw appErrorMapper(401);
     }
 
     res.json({

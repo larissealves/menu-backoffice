@@ -6,6 +6,7 @@ const errorHandler = (err, req, res, next) => {
             error: {
                 code: err.code,
                 message: err.message,
+                cause: err.cause || '',
             }
         });
     }

@@ -1,4 +1,6 @@
+import { databaseErrorMapper } from "../../application/erros/databaseErrorMapper.js";
 import pool from "../config/pgConnection.js"
+
 
 export async function getCategories(){
     try{
@@ -9,6 +11,6 @@ export async function getCategories(){
         return listCategories.rows;
     }catch(error) {
         console.log("DB - getIngredients() ", error);
-        throw error;
+        throw databaseErrorMapper(error);
     }
 }

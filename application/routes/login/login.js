@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import { checklogin } from '../../../database/queries/login/login.js'
+import { appErrorMapper } from '../../erros/appErrorMapper.js';
 
 const router = express.Router();
 
@@ -8,54 +9,37 @@ router.post('/login', async (req, res) => {
     const userPassword = req.body.password;
 
     if (!userName || !userPassword) {
-        return res.status(400).json({
-            user: '',
-            loginIsValid: false,
-            message: `Campo obrigatório não preenchido., 
-                   name: ${!userName ? userName : null} - 
-                   senha: ${!userPassword ? '****' : null}
-                `
-        });
+        throw appErrorMapper(400,
+            `Campo obrigatório não preenchido., 
+                name: ${!userName ? userName : null} - 
+                senha: ${!userPassword ? '****' : null}
+            `
+        );
     }
 
-    try {
-        const login = await checklogin(userName, userPassword);
+    const login = await checklogin(userName, userPassword);
 
-        if (!login.logginValid) {
-            return res.status(401).json({
-                user: '',
-                loginIsValid: false,
-                message: "Usuário inválido ou desativado."
-            });
+    if (!login.logginValid) {
+        throw appErrorMapper(401, 'Credenciais inválidas ou conta inativa.');
+    }
+
+    req.session.user = login.name;
+
+    req.session.save((err) => {
+        if (err) {
+            console.error('Erro ao salvar sessão:', err);
+            throw appErrorMapper(500, 'COOKIE - Erro ao salvar sessão.');
         }
 
-        req.session.user = login.name;
-
-        req.session.save((err) => {
-            if (err) {
-                console.error('Erro ao salvar sessão:', err);
-
-                return res.status(500).json({
-                    message: 'Erro ao salvar sessão.'
-                });
-            }
-
-            const data = res.status(200).json({
-                user: login.name,
-                loginIsValid: login.logginValid,
-                message: 'Login realizado'
-            });
-
-            return data;
-
+        const data = res.status(200).json({
+            user: login.name,
+            loginIsValid: login.logginValid,
+            message: 'Login realizado'
         });
 
-    } catch (error) {
-        console.log('Error ao checar login: ', error.message);
-        res.status(500).json({
-            message: "Error ao checar login no DB."
-        })
-    }
+        return data;
+
+    });
 });
 
 

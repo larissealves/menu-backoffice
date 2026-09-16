@@ -1,10 +1,8 @@
 import express from "express";
 import { asyncHandler } from "../middlewares/asyncHandler.js";
 
-
 import { getDish, createDish } from '../../database/queries/dishQueries.js'
 import multer from "multer";
-
 
 const upload = multer();
 const router = express.Router();
@@ -43,7 +41,7 @@ router.get(`/dishes`,
             }
         });
     }
-));
+    ));
 
 router.post(`/dishes`, upload.none(), async (req, res) => {
     const form = {
@@ -56,20 +54,12 @@ router.post(`/dishes`, upload.none(), async (req, res) => {
         tagsId: JSON.parse(req.body.tagsId),
         ingredientsId: JSON.parse(req.body.ingredientsId),
     }
+    const sendForm = await createDish(form);
 
-    try {
-        const sendForm = await createDish(form);
-
-        res.status(200).json({
-            data: sendForm,
-            message: "Prato adicionado com sucesso"
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            error: "Endpoint - não foi possível adicionar o prato",
-        })
-    }
+    res.status(200).json({
+        data: sendForm,
+        message: "Prato adicionado com sucesso"
+    });
 });
 
 export default router;

@@ -1,4 +1,5 @@
-import express  from 'express'
+import express from 'express'
+import { appErrorMapper } from '../../erros/appErrorMapper.js';
 
 const router = express.Router();
 
@@ -6,7 +7,7 @@ router.get('/logout', (req, res) => {
 
     req.session.destroy((err) => {
         if (err) {
-            return res.status(500).send('Erro ao encerrar a sessão.');
+            throw appErrorMapper(500, 'Erro ao encerrar a sessão.')
         }
 
         res.clearCookie('user');

@@ -1,3 +1,4 @@
+import { databaseErrorMapper } from '../../application/erros/databaseErrorMapper.js';
 import pool from '../config/pgConnection.js'
 
 export async function getTags() {
@@ -11,6 +12,6 @@ export async function getTags() {
 
     } catch(error) {
         console.log("DB - getTags() - ", error);
-        throw error;
+        throw databaseErrorMapper(error);
     }
 }
