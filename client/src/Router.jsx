@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "./hooks/context/AuthContext.jsx";
 
-import ListDish from './components/ListDish.jsx'
-import ListDishScreenFilters from './components/ListDishScreenFilters.jsx'
+import Home from "./components/home.jsx";
+import ListDishScreenFilters from './components/ListDishScreenFilters.jsx';
 import BaseLayout from "./components/baseComponents/BaseLayout.jsx";
 
 import Login from './components/login/form.jsx';
@@ -35,7 +35,7 @@ function Router() {
                 {(user && !loading) ? (
                     <>
                         <Route element={<BaseLayout />}>
-                            <Route path="/" element={<ListDish />} />
+                            <Route path="/" element={<Home />} />
                             <Route path='/screenFilters' element={<ListDishScreenFilters />} />
                             <Route path="*" element={<Navigate to="/" replace />} />
                         </Route>
