@@ -89,7 +89,6 @@ export default function Home() {
             setCurrentPage(data.pagination.currentPage);
             setPaginationTotalPages(data.pagination.totalPages);
 
-
         } catch (error) {
             setListDish([]);
             console.log("Erro ao carregar a lista de pratos! \n", error);
@@ -98,6 +97,17 @@ export default function Home() {
             setLoading(false);
         }
     };
+
+    const clearFilters = () => {
+        const newFilter = {
+            ...filters,
+            tags: [],
+            ingredients: [],
+            category: '',
+            name: '',
+        }
+        updateFilters(newFilter);
+    }
 
     const updateFilters = (value) => {
         const newFilter = {
@@ -120,61 +130,248 @@ export default function Home() {
     }, [filters, currentPage]);
 
     return (
-        <div className="min-h-screen bg-[#FFFDF5] p-3 sm:p-4">
+        <main className="min-h-screen bg-[#FFFDF5]">
 
-            <div className="mx-auto mb-3 flex justify-end gap-4">
-                <button
-                    type="button"
-                    onClick={() => setShowForm((prev) => !prev)}
-                    className="rounded-md bg-[#3F5145] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#506456] cursor-pointer"
-                >
-                    {showForm ? "Esconder formulário" : "+ Adicionar prato"}
-                </button>
+            {/* Header */}
+            <header className="border-b border-[#E8E1C8] bg-white">
+                <div className="mx-auto flex max-w-7xl items-center justify-end gap-3 px-4 py-3 sm:px-6">
 
-                <PDFDownloadLink
-                    document={<ListDishPDF listItems={listDish} />}
-                    fileName="lista-de-pratos.pdf"
-                >
-                    {({ loading }) => (
+                    <div className="flex shrink-0 items-center gap-2">
+                        {/*  =================== BOTÃO - PDF ===================  */}
+                        {false && (
+                            <PDFDownloadLink
+                                document={<ListDishPDF listItems={listDish} />}
+                                fileName="lista-de-pratos.pdf"
+                            >
+                                {({ loading }) => (
+                                    <button
+                                        type="button"
+                                        disabled={loading}
+                                        className="
+                                    inline-flex items-center gap-2
+                                    rounded-lg
+                                    border border-[#E8E1C8]
+                                    bg-white
+                                    px-3 py-2
+                                    text-sm font-medium
+                                    text-[#3F5145]
+                                    transition
+                                    hover:border-[#D9B64C]
+                                    hover:bg-[#FFFDF5]
+                                    disabled:cursor-not-allowed
+                                    disabled:opacity-50
+                                "
+                                    >
+                                        <span>↓</span>
+
+                                        <span className="hidden sm:inline">
+                                            {loading
+                                                ? "Gerando PDF..."
+                                                : "Baixar PDF"}
+                                        </span>
+
+                                        <span className="sm:hidden">
+                                            PDF
+                                        </span>
+                                    </button>
+                                )}
+                            </PDFDownloadLink>
+                        )}
+
+                        {/* =================== BOTÃO - Novo prato ===================  */}
                         <button
                             type="button"
-                            disabled={loading}
-                            className="rounded-md bg-[#E9B949] px-4 py-2 text-sm cursor-pointer font-medium text-[#3F5145] hover:bg-[#E2AD38] disabled:opacity-50"
+                            onClick={() => setShowForm((prev) => !prev)}
+                            className="
+                            inline-flex items-center gap-2
+                            rounded-lg
+                            bg-[#3F5145]
+                            px-3 py-2
+                            text-sm font-semibold
+                            text-white
+                            shadow-sm
+                            transition
+                            hover:bg-[#506456]
+                            hover:shadow
+                            cursor-pointer
+                        "
                         >
-                            {loading ? "Gerando PDF..." : "Baixar PDF"}
+                            <span className="text-base leading-none">
+                                {showForm ? "×" : "+"}
+                            </span>
+
+                            <span className="hidden sm:inline">
+                                {showForm
+                                    ? "Fechar formulário"
+                                    : "Adicionar prato"}
+                            </span>
                         </button>
+
+                    </div>
+                </div>
+            </header>
+
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+                {/*  =================== FORMULÁRIO  ===================  */}
+                {showForm && (
+                    <section
+                        className="
+                        mb-6
+                        overflow-hidden
+                        rounded-xl
+                        border border-[#E8E1C8]
+                        bg-white
+                        shadow-sm
+                    "
+                    >
+                        <div className="border-b border-[#E8E1C8] px-5 py-4">
+                            <h2 className="text-sm font-semibold text-[#3F5145]">
+                                Cadastrar prato
+                            </h2>
+                        </div>
+
+                        <div className="p-5">
+                            <NewDish
+                                loading={loading}
+                                setLoading={() =>
+                                    setLoading((prev) => !prev)
+                                }
+                                listTags={listTags}
+                                listIngredients={listIngredients}
+                                listCategories={listCategories}
+                            />
+                        </div>
+                    </section>
+                )}
+
+                {/* =================== FILTROS =================== */}
+                <section
+                    className="
+                    top-0
+                    z-30
+                    mb-6
+                    rounded-xl
+                    border border-[#E8E1C8]
+                    bg-white/95
+                    px-4
+                    py-4
+                    shadow-sm
+                    backdrop-blur-md
+                    sm:px-5
+                "
+                >
+                    <div className="mb-3 text-left">
+                        <h2 className="text-sm font-semibold text-[#3F5145]">
+                            Filtros
+                        </h2>
+                    </div>
+
+                    <div
+                        className={`
+                        transition-opacity
+                        ${loading ? "pointer-events-none opacity-60" : ""}
+                    `}
+                    >
+                        <FiltersDish
+                            listTags={listTags}
+                            listIngredients={listIngredients}
+                            listCategories={listCategories}
+                            listFilters={updateFilters}
+                            clearFilters={clearFilters}
+                            loading={loading}
+                        />
+                    </div>
+                </section>
+
+                {/*  =================== LISTAGEM  =================== */}
+                <section
+                    className="
+                    overflow-hidden
+                    rounded-xl
+                    border border-[#E8E1C8]
+                    bg-white
+                    shadow-sm
+                    z-5
+                "
+                >
+
+                    <div
+                        className="
+                        flex
+                        min-h-[57px]
+                        items-center
+                        justify-between
+                        gap-3
+                        border-b border-[#E8E1C8]
+                        px-5 py-3
+                        z-5
+                    "
+                    >
+                        <h2 className="text-sm font-semibold text-[#3F5145]">
+                            Listagem
+                        </h2>
+
+                        {loading && (
+                            <div
+                                className="
+                                inline-flex
+                                shrink-0
+                                items-center
+                                gap-2
+                                rounded-lg
+                                bg-[#E7EFE7]
+                                px-3
+                                py-1.5
+                                text-xs
+                                font-medium
+                                text-[#3F5145]
+                            "
+                            >
+                                <span
+                                    className="
+                                    h-2
+                                    w-2
+                                    animate-pulse
+                                    rounded-full
+                                    bg-[#D9B64C]
+                                "
+                                />
+
+                                Atualizando...
+                            </div>
+                        )}
+                    </div>
+
+                    {!loading && (
+                        <div className="p-4 sm:p-5 z-5">
+                            <ListDish
+                                dishes={listDish}
+                                loading={loading}
+                                setLoading={((prev) => !prev)}
+
+                                setCurrentPagePrev={() =>
+                                    setCurrentPage((prev) =>
+                                        Math.max(prev - 1, 1)
+                                    )
+                                }
+                                setCurrentPageNext={() =>
+                                    setCurrentPage((prev) =>
+                                        Math.min(
+                                            prev + 1,
+                                            paginationTotalPages
+                                        )
+                                    )
+                                }
+                                currentPage={currentPage}
+                                paginationTotalPages={paginationTotalPages}
+                            />
+                        </div>
                     )}
-                </PDFDownloadLink>
+                </section>
             </div>
-
-            {showForm && (
-                <NewDish
-                    loading={loading}
-                    setLoading={() => setLoading((prev) = !prev)}
-                    listTags={listTags}
-                    listIngredients={listIngredients}
-                    listCategories={listCategories}
-                />
-            )}
-
-            <FiltersDish
-                listTags={listTags}
-                listIngredients={listIngredients}
-                listCategories={listCategories}
-                listFilters={updateFilters}
-                loading={loading}
-            />
-
-            <ListDish
-                dishes={listDish}
-                loading={loading}
-                setCurrentPagePrev={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                setCurrentPageNext={() => setCurrentPage((prev) =>
-                    Math.min(prev + 1, paginationTotalPages))}
-                currentPage={currentPage}
-                paginationTotalPages={paginationTotalPages}
-            />
-        </div>
-
+        </main>
     );
+
+
+
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "./hooks/context/AuthContext.jsx";
 
-import Home from "./components/Home.jsx";
+import Home from "./components/Home.jsx"
 import ListDishScreenFilters from "./components/z_remove/ListDishScreenFilters.jsx";
 import BaseLayout from "./components/baseComponents/BaseLayout.jsx";
 
