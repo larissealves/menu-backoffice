@@ -6,11 +6,12 @@
     "pg-connection-string": "^2.14.0"
   },
   "scripts": {
-    "test": "jest",
     "app": "npm run dev --prefix application",
     "client": "npm run dev --prefix client ",
     "dev": "concurrently \"npm run app\" \"npm run client\"",
-    "start": "npm run dev --prefix application"
+    "start": "npm run dev --prefix application",
+
+    "test": "node --env-file=./.env.development ./tests/index.test.js"
   },
   "type": "module",
   "devDependencies": {
