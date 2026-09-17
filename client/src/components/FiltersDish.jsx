@@ -88,7 +88,7 @@ export default function FiltersDish({ listCategories, listTags, listIngredients,
                             fixed
                             left-2
                             right-2
-                            top-[62px]
+                            top-[95px]
                             z-[9999]
                             max-h-[calc(100vh-72px)]
                             overflow-y-auto
@@ -229,7 +229,7 @@ export default function FiltersDish({ listCategories, listTags, listIngredients,
 
                                             updateFilters(newFilter);
                                         }}
-                                        className="w-full rounded-md border border-[#DDD8C7] bg-white px-3 py-2.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]"
+                                        className="w-full rounded-md border border-[#DDD8C7] bg-white px-3 py-2.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] capitalize"
                                     >
                                         <option value="">
                                             Todas as categorias
@@ -268,7 +268,7 @@ export default function FiltersDish({ listCategories, listTags, listIngredients,
                                                 tags: selectedTags,
                                             });
                                         }}
-                                        className="h-28 w-full cursor-pointer rounded-md border border-[#DDD8C7] bg-[#FFFDF5] p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] sm:h-24"
+                                        className="h-28 w-full cursor-pointer rounded-md border border-[#DDD8C7] bg-[#FFFDF5] p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] sm:h-24  capitalize"
                                     >
                                         {listTags?.map((item) => (
                                             <option
@@ -290,7 +290,7 @@ export default function FiltersDish({ listCategories, listTags, listIngredients,
                                 <div>
                                     <label
                                         htmlFor="ingredient-filter"
-                                        className="mb-1 block text-xs font-semibold text-[#566357]"
+                                        className="mb-1 block text-xs font-semibold text-[#566357]  capitalize"
                                     >
                                         Ingredientes
                                     </label>
@@ -311,7 +311,7 @@ export default function FiltersDish({ listCategories, listTags, listIngredients,
                                                 ingredients: selectedIngredients,
                                             });
                                         }}
-                                        className="h-28 w-full cursor-pointer rounded-md border border-[#DDD8C7] bg-[#FFFDF5] p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] sm:h-24"
+                                        className="h-28 w-full cursor-pointer rounded-md border border-[#DDD8C7] bg-[#FFFDF5] p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] sm:h-24  capitalize"
                                     >
                                         {listIngredients?.map((item) => (
                                             <option

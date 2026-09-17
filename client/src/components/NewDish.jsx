@@ -192,7 +192,7 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
                                     categoryId: e.target.value,
                                 }))
                             }
-                            className="w-full rounded-md border border-[#DDD8C7] bg-white px-3 py-2 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]"
+                            className="w-full rounded-md border border-[#DDD8C7] bg-white px-3 py-2 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]  capitalize"
                         >
                             <option value="">
                                 Selecione uma categoria
@@ -255,7 +255,7 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
                                     ),
                                 }))
                             }
-                            className="h-24 w-full rounded-md border border-[#DDD8C7] bg-white p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]"
+                            className="h-24 w-full rounded-md border border-[#DDD8C7] bg-white p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A] capitalize"
                         >
                             {listTags.map((item) => (
                                 <option key={item.id} value={item.id}>
@@ -291,7 +291,7 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
                                     ),
                                 }))
                             }
-                            className="h-24 w-full rounded-md border border-[#DDD8C7] bg-white p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]"
+                            className="h-24 w-full rounded-md border border-[#DDD8C7] bg-white p-1.5 text-sm text-[#566357] outline-none transition focus:border-[#D9B64C] focus:ring-1 focus:ring-[#F6D77A]  capitalize"
                         >
                             {listIngredients.map((item) => (
                                 <option key={item.id} value={item.id}>

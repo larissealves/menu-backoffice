@@ -119,7 +119,29 @@ export default function BaseLayout() {
                     </p>
 
                     <p className="text-xs text-[#B0B3A8]">
-                        Feito com carinho
+                        <a
+                            href="https://github.com/larissealves/menu-backoffice"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="
+                                inline-flex
+                                items-center
+                                gap-1.5
+                                text-xs
+                                font-medium
+                                text-[#697266]
+                                transition
+                                hover:text-[#3F5145]
+                                hover:underline
+                            "
+                        >
+                             GitHub
+                            <span className="text-[10px]">↗</span>
+                        </a>
+                    </p>
+
+                    <p className="text-xs text-[#B0B3A8]">
+                        Feito com carinho 💕
                     </p>
 
                 </div>
