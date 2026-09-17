@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/context/AuthContext.jsx';
 
 export default function BaseLayout() {
-    const { user, logout } = useAuth();
+    const { user, roles, logout } = useAuth();
     const navigate = useNavigate();
 
     async function handleLogout() {
@@ -38,23 +38,17 @@ export default function BaseLayout() {
                         </div>
 
                         {/* Permissões */}
-                                           <div className="flex items-center gap-1.5 rounded-lg bg-[#E7EFE7] px-2.5 py-2 text-xs font-medium text-[#3F5145] sm:px-3">
-                                               <span className="hidden sm:inline">
-                                                   Permissões:
-                                               </span>
-                       
-                                               <span className="rounded-md bg-white px-2 py-1">
-                                                   Visualizar
-                                               </span>
-                       
-                                               <span className="rounded-md bg-white px-2 py-1">
-                                                   Editar
-                                               </span>
-                       
-                                               <span className="rounded-md bg-white px-2 py-1">
-                                                   Administrar
-                                               </span>
-                                           </div> 
+                        <div className="flex items-center gap-1.5 rounded-lg bg-[#E7EFE7] px-2.5 py-2 text-xs font-medium text-[#3F5145] sm:px-3">
+                            <span className="hidden sm:inline">
+                                Permissões:
+                            </span>
+
+                            {roles.map((item, index) => (
+                                <span key={index} className="rounded-md bg-white px-2 py-1 lowercase">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
                     </div>
 
 
@@ -135,7 +129,7 @@ export default function BaseLayout() {
                                 hover:underline
                             "
                         >
-                             GitHub
+                            GitHub
                             <span className="text-[10px]">↗</span>
                         </a>
                     </p>

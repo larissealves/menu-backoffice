@@ -19,12 +19,22 @@ router.post('/login', async (req, res) => {
     }
 
     const login = await checklogin(userName, userPassword);
+    console.log("LOGIN RESPONSE => ", login);
 
     if (!login.logginValid) {
         throw appErrorMapper(401, 'Credenciais inválidas ou conta inativa.');
     }
 
+   
+ const formatRoles = {
+        view: 'visualizar',
+        edit: 'editar',
+        admim: 'Admin'
+    }
+
+    const roles = login.roles.map(role => formatRoles[role.user_role]);
     req.session.user = login.name;
+    req.session.roles = roles;
 
     req.session.save((err) => {
         if (err) {
@@ -34,6 +44,7 @@ router.post('/login', async (req, res) => {
 
         return successResponse(res, {
                 user: login.name,
+                roles: roles || '',
                 loggedIn: login.logginValid,
             }, 201
         )

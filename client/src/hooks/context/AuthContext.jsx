@@ -7,6 +7,7 @@ const Auth = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [roles, setRoles ] = useState(null);
     const [loading, setLoading] = useState(false);
     const [loginChecked, setLoginChecked] = useState(false);
 
@@ -23,6 +24,7 @@ export function AuthProvider({ children }) {
 
                 const data = await res.json();
                 setUser(data.user);
+                setRoles(data.roles);
             })
 
             .catch(() => {
@@ -55,7 +57,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <Auth.Provider value={{loginChecked, setLoginChecked, user, setUser, setLoading, loading, logout }}>
+        <Auth.Provider value={{loginChecked, setLoginChecked, user, setUser, roles, setLoading, loading, logout }}>
             {children}
         </Auth.Provider>
     );

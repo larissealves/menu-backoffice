@@ -63,6 +63,7 @@ app.get('/api/me', (req, res) => {
 
     res.json({
         user: req.session.user,
+        roles: req.session.roles,
         loggedIn: true,
         message: '',
     });
