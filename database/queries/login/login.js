@@ -31,11 +31,12 @@ async function checkUserRole(user_name) {
             ("login"."name"=$1 
                 AND
             "login"."isActive"=true
+                AND
+            "user_role"."isActive"=true
             )
         `, [user_name]
         );
-
-        console.log("USER ROLE RESULT - REMOVE ==>", result.rows)
+ 
         return result.rows;
 
     } catch (error) {
@@ -47,10 +48,10 @@ async function checkUserRole(user_name) {
 export async function checklogin(name, password) {
     const listRoles = await checkUserRole(name);
 
-    if (listRoles === false) {
-        return data = {
+    if (listRoles === false || !listRoles.length) {
+        return {
             logginValid: false,
-            name: user.name,
+            name: name,
             roles: [],
         };
     }
@@ -66,25 +67,33 @@ export async function checklogin(name, password) {
 
         const user = result.rows[0];
 
-        if (result.rows.length === 0 || user.isActive === false) {
-            return data = {
+        if (result.rows.length === 0) {
+            return {
                 logginValid: false,
-                name: user.name,
+                name: name,
+                roles: [],
+            };
+        }
+
+        if (user.isActive === false) {
+            return {
+                logginValid: user.isActive,
+                name: name,
                 roles: [],
             };
         }
 
         const isValid = await validatePasswordHash(password, user.password);
-        const data = {
+       
+        return {
             logginValid: isValid,
             name: user.name,
             roles: listRoles
-        }
-
-        return data;
+        };
+        
     } catch (error) {
         console.log('erro ao checar o login: ', error)
-        throw error;
+        throw databaseErrorMapper(error);
     }
 
 }
