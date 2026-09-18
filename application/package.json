@@ -17,6 +17,7 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "jsonwebtoken": "^9.0.3",
     "multer": "^2.3.0",
     "pg": "^8.23.0",
     "pg-connection-string": "^2.14.0",

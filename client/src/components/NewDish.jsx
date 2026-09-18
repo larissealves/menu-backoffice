@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const ENDPOINT = `/api/`;
 
-export default function NewDish({ showForm, loading, setLoading, listTags, listIngredients, listCategories }) {
+export default function NewDish({ permissions, loading, setShowLoading, listTags, listIngredients, listCategories }) {
 
     const [messageAlert, setMessageAlert] = useState({
         message: "",
@@ -31,6 +31,11 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
             return null;
         }
 
+        if(!permissions.edit) {
+            setMessageAlert({ message: 'Sem permissão para editar/criar', type: 'error' });
+            return null;
+        }
+
         const formData = new FormData();
 
         formData.append('name', formDish.name);
@@ -47,12 +52,12 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        setLoading();
+        setShowLoading();
         setMessageAlert({ message: "", type: "" });
         const form = checkForm();
 
         if (!form) {
-            setLoading();
+            setShowLoading();
             return;
         }
 
@@ -76,7 +81,7 @@ export default function NewDish({ showForm, loading, setLoading, listTags, listI
             setMessageAlert({ message: 'Error ao salvar o prato', type: 'error' });
             console.log("erro aos salvar o prato", error);
         } finally {
-            setLoading();
+            setShowLoading();
         }
     };
 

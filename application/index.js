@@ -52,7 +52,6 @@ app.use(session({
     }
 }));
 
-
 app.use('/api', loginRoutes);
 app.use('/api', logoutRoute);
 
@@ -64,6 +63,7 @@ app.get('/api/me', (req, res) => {
     res.json({
         user: req.session.user,
         roles: req.session.roles,
+        token: req.session.jwtToken,
         loggedIn: true,
         message: '',
     });

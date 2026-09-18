@@ -8,9 +8,12 @@ import FiltersDish from "./FiltersDish.jsx";
 import ListDishPDF from "./z_remove/ListDishPDF.jsx";
 
 import envConfig from "../../config/envConfig.js";
+import { useAuth } from "../hooks/context/AuthContext.jsx";
 const ENDPOINT = `/api/`;
 
 export default function Home() {
+
+    const { jwtToken, roles } = useAuth();
 
     const [listDish, setListDish] = useState([]);
     const [listTags, setListTags] = useState([]);
@@ -21,10 +24,8 @@ export default function Home() {
     const [paginationTotalPages, setPaginationTotalPages] = useState(0);
     const PAGINATION_LIMIT = 4;
 
-
     const [showForm, setShowForm] = useState(false);
-    const [loading, setLoading] = useState(false);
-
+    const [showLoading, setShowLoading] = useState(false);
 
     const [filters, setFilters] = useState({
         tags: [],
@@ -33,9 +34,18 @@ export default function Home() {
         name: '',
     });
 
+    
+    const permissions = {
+        edit: roles.includes('edit'),
+        view: roles.includes('view'),
+        admin: roles.includes('admin'),
+    }
+
+    const definePermission = roles
+
     const fetchDropdowns = async () => {
         try {
-            setLoading(true);
+            setShowLoading(true);
             const [tags, ingredients, categories] = await Promise.all([
                 fetch(`${ENDPOINT}tags`, { credentials: 'include' }),
                 fetch(`${ENDPOINT}ingredients`, { credentials: 'include' }),
@@ -61,20 +71,25 @@ export default function Home() {
             setListCategories([]);
             console.log("Erro ao carregar os dados dos dropdowns! \n", error);
         } finally {
-            setLoading(false);
+            setShowLoading(false);
         }
     };
 
     const fetchDishes = async () => {
         try {
-            setLoading(true);
+            setShowLoading(true);
             const filterByName = !filters.name.trim() ? '' : filters.name;
             const filterByTags = filters.tags?.length && filters.tags[0] > 0 ? filters.tags.join(",") : '';
             const filterByingredients = filters.ingredients?.length && filters.ingredients[0] > 0 ? filters.ingredients.join(",") : '';
 
             const [dataListDish] = await Promise.all([
                 fetch(`${ENDPOINT}dishes?tags=${filterByTags}&ingredients=${filterByingredients}&category=${filters.category}&name=${filterByName}&currentPage=${currentPage}&limit=${PAGINATION_LIMIT}`,
-                    { credentials: 'include' }),
+                    {
+                        credentials: 'include',
+                        headers: {
+                            'authorization': `Bearer ${jwtToken}`
+                        }
+                    }),
             ]);
 
             const data = await dataListDish.json();
@@ -94,7 +109,7 @@ export default function Home() {
             console.log("Erro ao carregar a lista de pratos! \n", error);
 
         } finally {
-            setLoading(false);
+            setShowLoading(false);
         }
     };
 
@@ -131,7 +146,7 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-[#FFFDF5]">
-
+            
             {/* Header */}
             <header className="border-b border-[#E8E1C8] bg-white">
                 <div className="mx-auto flex max-w-7xl items-center justify-end gap-3 px-4 py-3 sm:px-6">
@@ -143,10 +158,10 @@ export default function Home() {
                                 document={<ListDishPDF listItems={listDish} />}
                                 fileName="lista-de-pratos.pdf"
                             >
-                                {({ loading }) => (
+                                {({ showLoading }) => (
                                     <button
                                         type="button"
-                                        disabled={loading}
+                                        disabled={showLoading}
                                         className="
                                     inline-flex items-center gap-2
                                     rounded-lg
@@ -165,7 +180,7 @@ export default function Home() {
                                         <span>↓</span>
 
                                         <span className="hidden sm:inline">
-                                            {loading
+                                            {showLoading
                                                 ? "Gerando PDF..."
                                                 : "Baixar PDF"}
                                         </span>
@@ -182,19 +197,21 @@ export default function Home() {
                         <button
                             type="button"
                             onClick={() => setShowForm((prev) => !prev)}
+                            disabled={showLoading || !permissions.edit}
+                            title={`${!permissions.edit ? 'Sem permissão para criar/editar' : ''}`}
                             className="
-                            inline-flex items-center gap-2
-                            rounded-lg
-                            bg-[#3F5145]
-                            px-3 py-2
-                            text-sm font-semibold
-                            text-white
-                            shadow-sm
-                            transition
-                            hover:bg-[#506456]
-                            hover:shadow
-                            cursor-pointer
-                        "
+                                inline-flex items-center gap-2
+                                rounded-lg
+                                bg-[#3F5145]
+                                px-3 py-2
+                                text-sm font-semibold
+                                text-white
+                                shadow-sm
+                                transition
+                                hover:bg-[#506456]
+                                hover:shadow
+                                cursor-pointer
+                            "
                         >
                             <span className="text-base leading-none">
                                 {showForm ? "×" : "+"}
@@ -232,13 +249,14 @@ export default function Home() {
 
                         <div className="p-5">
                             <NewDish
-                                loading={loading}
-                                setLoading={() =>
-                                    setLoading((prev) => !prev)
+                                showLoading={showLoading}
+                                setShowLoading={() =>
+                                    setShowLoading((prev) => !prev)
                                 }
                                 listTags={listTags}
                                 listIngredients={listIngredients}
                                 listCategories={listCategories}
+                                permissions={permissions}
                             />
                         </div>
                     </section>
@@ -269,7 +287,7 @@ export default function Home() {
                     <div
                         className={`
                         transition-opacity
-                        ${loading ? "pointer-events-none opacity-60" : ""}
+                        ${showLoading ? "pointer-events-none opacity-60" : ""}
                     `}
                     >
                         <FiltersDish
@@ -278,7 +296,7 @@ export default function Home() {
                             listCategories={listCategories}
                             listFilters={updateFilters}
                             clearFilters={clearFilters}
-                            loading={loading}
+                            loading={showLoading}
                         />
                     </div>
                 </section>
@@ -311,7 +329,7 @@ export default function Home() {
                             Listagem
                         </h2>
 
-                        {loading && (
+                        {showLoading && (
                             <div
                                 className="
                                 inline-flex
@@ -342,12 +360,12 @@ export default function Home() {
                         )}
                     </div>
 
-                    {!loading && (
+                    {!showLoading && (
                         <div className="p-4 sm:p-5 z-5">
                             <ListDish
                                 dishes={listDish}
-                                loading={loading}
-                                setLoading={((prev) => !prev)}
+                                loading={showLoading}
+                                setShowLoading={((prev) => !prev)}
 
                                 setCurrentPagePrev={() =>
                                     setCurrentPage((prev) =>

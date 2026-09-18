@@ -1,14 +1,24 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/context/AuthContext.jsx';
+import formatRoles from '../../hooks/format/formatRoles.js';
+import { useEffect, useState } from 'react';
+
 
 export default function BaseLayout() {
     const { user, roles, logout } = useAuth();
+
+    const [format_roles, setFormatRoles] = useState([]);
     const navigate = useNavigate();
 
     async function handleLogout() {
         await logout();
         navigate('/login');
     }
+
+    useEffect(() => {
+        const format = formatRoles(roles);
+        setFormatRoles(format);
+    }, [roles])
 
     return (
         <div className="min-h-screen flex flex-col bg-[#FFFDF5]">
@@ -43,7 +53,7 @@ export default function BaseLayout() {
                                 Permissões:
                             </span>
 
-                            {roles.map((item, index) => (
+                            {format_roles.map((item, index) => (
                                 <span key={index} className="rounded-md bg-white px-2 py-1 lowercase">
                                     {item}
                                 </span>

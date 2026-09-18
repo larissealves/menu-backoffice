@@ -15,7 +15,7 @@ export default function Login({ setLoading, loading, onSave }) {
 
     const [alertMessage, setAlertMessage] = useState("");
 
-    const { setUser, setLoginChecked } = useAuth();
+    const { setUser, setToken, setLoginChecked } = useAuth();
 
     const activeLoading = () => {
         setLoading();
@@ -62,6 +62,7 @@ export default function Login({ setLoading, loading, onSave }) {
                 return;
             }
             setUser(result.user);
+            setToken(result.token);
             setLoginChecked(true);
             clearForm();
             //onSave();

@@ -4,12 +4,19 @@ import { asyncHandler } from "../middlewares/asyncHandler.js";
 import { getDish, createDish } from '../../database/queries/dishQueries.js'
 import multer from "multer";
 import { successResponse } from "../responses/success/successResponse.js";
+import verifyJWT from "../middlewares/verifyJWT.js";
+import { appErrorMapper } from "../responses/erros/appErrorMapper.js";
 
 const upload = multer();
 const router = express.Router();
 
 router.get(`/dishes`,
-    asyncHandler(async (req, res) => {
+    verifyJWT, asyncHandler(async (req, res) => {
+        console.log(req.userRoles);
+
+        if (!req.userRoles.roles.view) {
+            throw appErrorMapper(403, 'Usuário sem permissão para visualizar')
+        }
 
         const { name, category, tags, ingredients, currentPage, limit } = req.query;
 
@@ -44,9 +51,15 @@ router.get(`/dishes`,
             }
         );
     }
-));
+    ));
 
-router.post(`/dishes`, upload.none(), async (req, res) => {
+router.post(`/dishes`, upload.none(), 
+    verifyJWT, asyncHandler(async (req, res) => {
+
+    if (!req.userRoles.roles.edit) {
+        throw appErrorMapper(403, 'Usuário sem permissão para editar')
+    }
+
     const form = {
         name: req.body.name,
         price: req.body.price,
@@ -60,9 +73,10 @@ router.post(`/dishes`, upload.none(), async (req, res) => {
     const sendForm = await createDish(form);
 
     return successResponse(res, {
-            data: sendForm,
-            message: "Prato adicionado com sucesso"
+        data: sendForm,
+        message: "Prato adicionado com sucesso"
     });
-});
+}
+));
 
 export default router;
